@@ -1,13 +1,13 @@
 ---
-name: Release Template
-about: Verify code is ready to release
+name: Release Checklist
+about: DescVerify code is ready to releaseribe this issue template's purpose here.
 title: ''
 labels: Release
 assignees: ''
 
 ---
 
-This checklist is for verifing the release is ready to publish and published correctly.
+This checklist is for verifying the release is ready to publish and published correctly.
 
 ## Release
 - Title / Repo
@@ -28,6 +28,12 @@ This checklist is for verifing the release is ready to publish and published cor
 - [ ] Smoke test deployed for 48 hours
 
 ### Release
+- [ ] Reviewed & updated readme for Developer Experience
+- [ ] Resolve to-do from code
+- [ ] Verify all new libraries and dependencies are customer approved
 - [ ] Tag repo with version tag
 - [ ] Ensure CI-CD runs correctly
+- [ ] Ran cred scan
+- [ ] Removed workflow for issue triage and PR submission
+- [ ] Validate e2e testing
 - [ ] Close Release Task

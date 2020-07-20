@@ -1,7 +1,9 @@
 ---
 name: Engineering Survey
 about: Engineering Fundamentals Survey
+title: ''
 labels: Retro
+assignees: ''
 
 ---
 

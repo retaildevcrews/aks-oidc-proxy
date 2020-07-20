@@ -2,10 +2,11 @@
 name: Design Review
 about: Request a Design Review
 title: ''
-labels: Design Review
+labels: ''
 assignees: ''
 
 ---
+
 _This template is for capturing details needed for Design Review._  
 
 # Design Review
