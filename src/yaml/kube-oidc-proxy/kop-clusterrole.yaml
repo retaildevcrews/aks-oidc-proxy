@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    name: kube-oidc-proxy
+  name: kube-oidc-proxy
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - users
+  - groups
+  - serviceaccounts
+  verbs:
+  - impersonate
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - userextras/scopes
+  - tokenreviews
+  verbs:
+  - impersonate
+  - create
