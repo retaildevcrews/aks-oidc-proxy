@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  labels:
+    name: letsencrypt-prod
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: edvilla@microsoft.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        azuredns:
+          clientID: 6dcec2f4-853f-4557-aae9-249d70a17d28
+          clientSecretSecretRef:
+            key: client-secret
+            name: azuredns-config
+          environment: AzurePublicCloud
+          hostedZoneName: evillgenius.com
+          resourceGroupName: evillgenius_dns_rg
+          subscriptionID: 648dcb5a-de1e-48b2-af6b-fe6ef28d355c
+          tenantID: 72f988bf-86f1-41af-91ab-2d7cd011db47

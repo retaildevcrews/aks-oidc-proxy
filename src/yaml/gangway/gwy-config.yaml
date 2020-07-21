@@ -1,0 +1,31 @@
+apiVersion: v1
+data:
+  gangway.yaml: |-
+    {
+      "apiServerURL": "https://kube-oidc-proxy.evillgenius.com",
+      "authorizeURL": "https://dex.evillgenius.com/auth",
+      "authorize_url": "https://gangway.evillgenius.com/auth",
+      "certFile": "/etc/gangway/tls/tls.crt",
+      "clientID": "75UiO2E81m5Vi3nST4269fuO",
+      "clientSecret": "kubYhdk7TBZCO4H1MwF0RpuT",
+      "clusterCAPath": "/etc/gangway/cluster-ca.crt",
+      "clusterName": "oidcproxy.evillgenius.com",
+      "keyFile": "/etc/gangway/tls/tls.key",
+      "redirectURL": "https://gangway.evillgenius.com/callback",
+      "scopes": [
+        "openid",
+        "email",
+        "profile",
+        "groups",
+        "offline_access"
+      ],
+      "serveTLS": true,
+      "tokenURL": "https://dex.evillgenius.com/token",
+      "usernameClaim": "name"
+    }
+kind: ConfigMap
+metadata:
+  labels:
+    name: gangway
+  name: gangway
+  namespace: auth

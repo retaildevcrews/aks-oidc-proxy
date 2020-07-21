@@ -1,0 +1,11 @@
+apiVersion: dex.coreos.com/v1
+config: ewogICJjbGllbnRJRCI6ICJkNmIzMTdlMzk4OThjNTQyMTk2MyIsCiAgImNsaWVudFNlY3JldCI6ICI4ZDc1OTNjZmExMzkzNTc5NTBhM2I2MDA4NmViY2UwMjE3OTFkYmM1IiwKICAib3JncyI6IFsKICAgIHsKICAgICAgIm5hbWUiOiAicmV0YWlsZGV2Y3Jld3MiCiAgICB9CiAgXSwKICAicmVkaXJlY3RVUkkiOiAiaHR0cHM6Ly9kZXguZXZpbGxnZW5pdXMuY29tL2NhbGxiYWNrIgp9
+id: github
+kind: Connector
+metadata:
+  labels:
+    name: github
+  name: github
+  namespace: auth
+name: GitHub
+type: github

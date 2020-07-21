@@ -1,0 +1,22 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    name: gangway
+  name: gangway
+  namespace: auth
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: gangway
+      port: 8080
+  tcpproxy:
+    services:
+    - name: gangway
+      port: 8080
+  virtualhost:
+    fqdn: gangway.evillgenius.com
+    tls:
+      passthrough: true
