@@ -1,4 +1,4 @@
-# Personal Notes
+# Setup Azure infrastructure
 
 ## Authenticating using the Azure CLI
 
