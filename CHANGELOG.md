@@ -2,5 +2,7 @@
 
 ## Intial Commit
 
-- Date
+- 7/20/2020
 - Features
+  - Repo Template Population
+  - Initial Doc commits for Emgineering Game Plan and Working Agreement
