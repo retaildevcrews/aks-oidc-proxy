@@ -1,13 +1,8 @@
-# TODO: make variables
-# - name
-# - dns_prefix
-# - kubernetes_version
-
 resource "azurerm_kubernetes_cluster" "aks-oidc-proxy" {
-  name                = "cluster-aakindele"
+  name                = var.aks-cluster-name
   location            = azurerm_resource_group.aks-oidc-proxy.location
   resource_group_name = azurerm_resource_group.aks-oidc-proxy.name
-  dns_prefix          = "cluster-aakindele"
+  dns_prefix          = var.aks-cluster-name
   kubernetes_version  = "1.16.10"
 
   default_node_pool {

@@ -27,7 +27,8 @@ Initialize terraform.
 terraform init
 ```
 
-Run a plan to see verify what terraform will do.
+Run a plan to verify what terraform will do. Terraform will prompt for values when variables are not defined.
+To add default values and skip the variable prompts, copy the contents of `terraform.tfvars.example` to `terraform.tfvars`. Then add in your values.
 
 ```shell
 terraform plan
@@ -39,4 +40,7 @@ Apply the changes if they look satisfactory. You will have a chance to verify th
 terraform apply
 ```
 
-TODO: some info about what to do with the dns zone name servers
+TODO:
+
+- add some info about what to do with the dns zone name servers in the terraform output
+- how do service principals fit into all this?
