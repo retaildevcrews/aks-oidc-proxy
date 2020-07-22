@@ -1,4 +1,4 @@
-# Uncomment and use the variables below to set default values
-
 aks-cluster-name = "dev-cluster"
 dns-zone-name = "example.com"
+region = "East US"
+resource-group-name = "aks-oidc-proxy"
