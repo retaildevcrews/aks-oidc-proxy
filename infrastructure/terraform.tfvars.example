@@ -1,4 +1,4 @@
 aks-cluster-name = "dev-cluster"
 dns-zone-name = "example.com"
 region = "East US"
-resource-group-name = "aks-oidc-proxy"
+resource-group-name = "dev-resource-group"

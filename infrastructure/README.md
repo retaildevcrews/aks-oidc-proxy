@@ -42,5 +42,6 @@ terraform apply
 
 TODO:
 
-- add some info about what to do with the dns zone name servers in the terraform output
-- how do service principals fit into all this?
+- add some info about adding dns name servers output to the domain regiatrar
+- add some info about what to do with rest of cert-manager outputs
+- look into service principal password and how to set that up. separate process outside of terraform?
