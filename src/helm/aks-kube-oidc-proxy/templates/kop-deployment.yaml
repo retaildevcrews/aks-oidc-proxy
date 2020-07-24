@@ -1,94 +1,169 @@
+{{ $fullname := include "aks-kube-oidc-proxy.fullname" . }}
+{{ $defaultTlsSecretName := printf "%s-tls" $fullname }}
+{{ $tlsSecretName := .Values.tls.secretName | default $defaultTlsSecretName }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: {{ include "aks-kube-oidc-proxy.fullname" . }}
   labels:
-    name: kube-oidc-proxy
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-  name: {{ template "fullname" . }}
+{{ include "aks-kube-oidc-proxy.labels" . | indent 4 }}
 spec:
-  minReadySeconds: 30
-  progressDeadlineSeconds: 600
-  replicas: 1
-  revisionHistoryLimit: 2
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      name: kube-oidc-proxy
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+      app.kubernetes.io/name: {{ include "aks-kube-oidc-proxy.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        name: kube-oidc-proxy
+        app.kubernetes.io/name: {{ include "aks-kube-oidc-proxy.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      serviceAccountName: {{ include "aks-kube-oidc-proxy.serviceAccountName" . }}
       containers:
-        - command:
-            - kube-oidc-proxy
-            - '--secure-port=443'
-            - '--tls-cert-file=/etc/kube-oidc-proxy/tls/tls.crt'
-            - '--tls-private-key-file=/etc/kube-oidc-proxy/tls/tls.key'
-            - '--oidc-groups-prefix=dex:'
-            - '--oidc-groups-claim=groups'
-            - '--oidc-client-id=$(OIDC_CLIENT_ID)'
-            - '--oidc-issuer-url=$(OIDC_ISSUER_URL)'
-            - '--token-passthrough'
-            - '--oidc-username-claim=email'
-          env:
-            - name: OIDC_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  key: oidc.client-id
-                  name: kube-oidc-proxy-config
-            - name: OIDC_ISSUER_URL
-              valueFrom:
-                secretKeyRef:
-                  key: oidc.issuer-url
-                  name: kube-oidc-proxy-config
-          image: 'quay.io/jetstack/kube-oidc-proxy:v0.3.0'
-          imagePullPolicy: IfNotPresent
-          name: kube-oidc-proxy
-          ports:
-            - containerPort: 8080
-              name: probe
-              protocol: TCP
-            - containerPort: 443
-              name: serving
-              protocol: TCP
-          readinessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /ready
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
-          resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-          volumeMounts:
-            - mountPath: /etc/kube-oidc-proxy/oidc
-              name: oidc
-              readOnly: true
-            - mountPath: /etc/kube-oidc-proxy/tls
-              name: serving
-              readOnly: true
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      serviceAccount: kube-oidc-proxy
-      serviceAccountName: kube-oidc-proxy
-      terminationGracePeriodSeconds: 30
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 443
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        command: ["aks-kube-oidc-proxy"]
+        args:
+          - "--secure-port=443"
+          - "--tls-cert-file=/etc/oidc/tls/crt.pem"
+          - "--tls-private-key-file=/etc/oidc/tls/key.pem"
+          - "--oidc-client-id=$(OIDC_CLIENT_ID)"
+          - "--oidc-issuer-url=$(OIDC_ISSUER_URL)"
+          - "--oidc-username-claim=$(OIDC_USERNAME_CLAIM)"
+          {{- if .Values.oidc.caPEM }}
+          - "--oidc-ca-file=/etc/oidc/oidc-ca.pem"
+          {{ end }}
+          {{- if .Values.oidc.usernamePrefix }}
+          - "--oidc-username-prefix=$(OIDC_USERNAME_PREFIX)"
+          {{ end }}
+          {{- if .Values.oidc.groupsClaim }}
+          - "--oidc-groups-claim=$(OIDC_GROUPS_CLAIM)"
+          {{ end }}
+          {{- if .Values.oidc.groupsPrefix }}
+          - "--oidc-groups-prefix=$(OIDC_GROUPS_PREFIX)"
+          {{ end }}
+          {{- if .Values.oidc.signingAlgs }}
+          - "--oidc-signing-algs=$(OIDC_SIGNING_ALGS)"
+          {{ end }}
+          {{- if .Values.oidc.requiredClaims }}
+          - "--oidc-signing-algs=$(OIDC_REQUIRED_CLAIMS)"
+          {{ end }}
+          {{- if .Values.tokenPassthrough.enabled }}
+          - "--token-passthrough"
+          {{- if .Values.tokenPassthrough.audiences }}
+          - "--token-passthrough-audiences={{ join "," .Values.tokenPassthrough.audiences }}"
+          {{ end }}
+          {{ end }}
+          {{- if .Values.extraImpersonationHeaders.clientIP }}
+          - "--extra-user-header-client-ip"
+          {{ end }}
+          {{- if .Values.extraImpersonationHeaders.headers }}
+          - "--extra-user-headers={{ .Values.extraImpersonationHeaders.headers }}"
+          {{ end }}
+          {{- range $key, $value := .Values.extraArgs -}}
+          - "--{{ $key }}={{ $value -}}"
+          {{ end }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        env:
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+              key: oidc.client-id
+        - name: OIDC_ISSUER_URL
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+              key: oidc.issuer-url
+        - name: OIDC_USERNAME_CLAIM
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+              key: oidc.username-claim
+        {{- if .Values.oidc.usernamePrefix }}
+        - name: OIDC_USERNAME_PREFIX
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+              key: oidc.username-prefix
+        {{ end }}
+        {{- if .Values.oidc.groupsClaim }}
+        - name: OIDC_GROUPS_CLAIM
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+              key: oidc.groups-claim
+        {{ end }}
+        {{- if .Values.oidc.groupsPrefix }}
+        - name: OIDC_GROUPS_PREFIX
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+              key: oidc.groups-prefix
+        {{ end }}
+        {{- if .Values.oidc.signingAlgs }}
+        - name: OIDC_SIGNING_ALGS
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+              key: oidc.signing-algs
+        {{ end }}
+        {{- if .Values.oidc.requiredClaims }}
+        - name: OIDC_REQUIRED_CLAIMS
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+              key: oidc.required-claims
+        {{ end }}
+        volumeMounts:
+          {{- if .Values.oidc.caPEM }}
+          - name: aks-kube-oidc-proxy-config
+            mountPath: /etc/oidc
+            readOnly: true
+          {{ end }}
+          - name: aks-kube-oidc-proxy-tls
+            mountPath: /etc/oidc/tls
+            readOnly: true
+          {{- if .Values.extraVolumeMounts }}{{ toYaml .Values.extraVolumeMounts | trim | nindent 10 }}{{ end }}
       volumes:
-        - name: oidc
+        {{ if .Values.oidc.caPEM }}
+        - name: aks-kube-oidc-proxy-config
           secret:
-            defaultMode: 420
-            secretName: kube-oidc-proxy-config
-        - name: serving
+            secretName: {{ include "aks-kube-oidc-proxy.fullname" . }}-config
+            items:
+            - key: oidc.ca-pem
+              path: oidc-ca.pem
+        {{ end }}
+        {{- if .Values.extraVolumes }}{{ toYaml .Values.extraVolumes | trim | nindent 8 }}{{ end }}
+        - name: aks-kube-oidc-proxy-tls
           secret:
-            defaultMode: 420
-            secretName: kube-oidc-proxy-tls
+            secretName: {{ $tlsSecretName }}
+            items:
+            - key: tls.crt
+              path: crt.pem
+            - key: tls.key
+              path: key.pem
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
