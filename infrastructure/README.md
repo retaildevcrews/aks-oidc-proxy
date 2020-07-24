@@ -39,3 +39,5 @@ Apply the changes if they look satisfactory. You will have a chance to verify th
 ```shell
 terraform apply
 ```
+
+Part of the terraform output will be the Nameservers for the DNS Zone. The Nameservers for your domain need to be updated with your registrar to the Azure DNS Zone Name Servers. You can find instructions [here](https://docs.microsoft.com/en-us/azure/dns/dns-delegate-domain-azure-dns).
