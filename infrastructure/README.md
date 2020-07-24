@@ -39,9 +39,3 @@ Apply the changes if they look satisfactory. You will have a chance to verify th
 ```shell
 terraform apply
 ```
-
-TODO:
-
-- add some info about adding dns name servers output to the domain regiatrar
-- add some info about what to do with rest of cert-manager outputs
-- look into service principal password and how to set that up. separate process outside of terraform?
