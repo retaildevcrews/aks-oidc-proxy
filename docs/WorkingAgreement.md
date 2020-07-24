@@ -105,7 +105,7 @@ We pledge to follow the [Microsoft Open Source Code of Conduct](https://opensour
     * **Sprint Backlog**:  Issues that have been committed for the current sprint.
     * **In Progress**: A development team member owns the story or bug and begins work.
     * **PR Submitted/In Review**: The owner of the story or bug determines the item meets our [Definition of Done](#definition-of-done) and has created a Pull Request. The item will stay in this status through the PR process -- including addressing requested feedback or fixing issues found.
-    * **Closed**: The Pull Request/Task has completed, and the work has been committed to the `master` branch of the project repository.
+    * **Closed**: The Pull Request/Task has completed, and the work has been committed to the `main` branch of the project repository.
   * Story Board styles:
     * We will style stories or bugs that have been committed to the current sprint so that they may be easily identified from the story board.
     * We will style stories or bugs that were committed to the previous sprint but carried over so that we may focus on completing the items as soon as possible to reduce impact on the current sprint.
