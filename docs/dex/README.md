@@ -8,12 +8,14 @@ Dex runs natively on top of any Kubernetes cluster using Third Party Resources a
 
 ## Prerequsites
 
-To allow the Dex service to deploy properly there is an order to applying the yaml files provided. Dex uses its service account to create the needed Custom Resource Defintions (CRDs).
+To allow the Dex service to deploy properly there is an order to applying the yaml files provided. Dex uses its service account to create the needed Custom Resource Defintions (CRDs) and to have proper access to its own namespace to update CRD files.
 
-Add a Service account for Dex
+Add a Service account, role and role bindings for Dex
 
 ```bash
 kubectl -n auth apply -f src/yaml/dex/dex-serviceaccount.yaml
+kubectl -n auth apply -f src/yaml/dex/dex-roles.yaml
+kubectl -n auth apply -f src/yaml/dex/dex-rolebinding.yaml
 ```
 
 Add a ClusterRole that has permissions to create CRDs and then bind the role to the Service Account using a ClusterRoleBinding defintion
@@ -57,6 +59,14 @@ Events:
   Type    Reason  Age   From          Message
   ----    ------  ----  ----          -------
   Normal  Issued  38s   cert-manager  Certificate issued successfully
+```
+
+Now the Dex service can be deployed. The dex-config.yaml file needs to be updated to have the correct domain that is being used for the example scenario
+
+```bash
+kubectl -n auth apply -f src/yaml/dex/dex-config.yaml
+kubectl -n auth apply -f src/yaml/dex/dex-deploy.yaml
+kubectl -n auth apply -f src/yaml/dex/dex-service.yaml
 ```
 
 The dex service should now be up and running and can be verified by running
