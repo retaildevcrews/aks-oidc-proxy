@@ -1,0 +1,16 @@
+#This is required for gangway to talk to Dex via a grpc API call. 
+# The values for id and secret can be any random string. Best to use a hash of a known something for each
+# The redirectURIs needs to be the callback endpoint of the gangway service.
+
+apiVersion: dex.coreos.com/v1
+id: 75UiO2E81m5Vi3nST4269fuO #random String
+kind: OAuth2Client
+metadata:
+  labels:
+    app: dex
+    name: gangway-oauth2client
+  name: gangway-oauth2client
+  namespace: auth
+redirectURIs:
+- https://gangway.INSERT_OWN_DOMAIN.HERE/callback
+secret: kubYhdk7TBZCO4H1MwF0RpuT #random string

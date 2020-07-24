@@ -1,0 +1,11 @@
+# This is the yaml representation of a user in the Dex Database in Kubernetes
+apiVersion: dex.coreos.com/v1
+kind: Password
+metadata:
+  labels:
+    name: user-edvilla
+  name: user-edvilla
+  namespace: auth
+email: user@INSERT_OWN_DOMAIN.HERE # E-mail address to allow authentication to
+hash: C4@ng3M3! # Base64 encoded value of the bcrypt(10r) has of the users password see README doc
+username: user@INSERT_OWN_DOMAIN.HERE # E-mail address to allow authentication to
