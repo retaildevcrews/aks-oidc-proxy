@@ -52,12 +52,6 @@ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/relea
 > `CustomResourceDefinition` resources.  This is a benign error and occurs due
 > to the way `kubectl` performs resource validation.
 
-```bash
-  kubectl create clusterrolebinding cluster-admin-binding \
-    --clusterrole=cluster-admin \
-    --user=$(gcloud config get-value core/account)
-```
-
 > **Note**: By default, cert-manager will be installed into the `cert-manager`
 > namespace. It is possible to run cert-manager in a different namespace, although you
 > will need to make modifications to the deployment manifests.
