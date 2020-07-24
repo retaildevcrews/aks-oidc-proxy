@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   config.yaml: |-
-    issuer: https://dex.INSERT_OWN_DOMAIN.com
+    issuer: https://dex.INSERT_OWN_DOMAIN.HERE
     storage:
       type: kubernetes
       config:

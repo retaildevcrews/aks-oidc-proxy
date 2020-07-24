@@ -12,5 +12,5 @@ metadata:
   name: gangway-oauth2client
   namespace: auth
 redirectURIs:
-- https://gangway.evillgenius.com/callback
+- https://gangway.INSERT_OWN_DOMAIN.HERE/callback
 secret: kubYhdk7TBZCO4H1MwF0RpuT #random string
