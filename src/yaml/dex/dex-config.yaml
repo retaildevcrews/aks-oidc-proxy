@@ -16,6 +16,17 @@ data:
       tlsKey: /etc/dex/tls/tls.key
       tlsClientCA: /etc/dex/tls/tls.crt
     enablePasswordDB: true
+    staticClients:
+    - id: 75UiO2E81m5Vi3nST4269fuO #random String
+      redirectURIs:
+      - https://gangway.INSERT_OWN_DOMAIN.HERE/callback
+      name: gangway-oauth2client
+      secret: kubYhdk7TBZCO4H1MwF0RpuT #random String
+    staticPasswords:
+    - email: user@INSERT_OWN_DOMAIN.HERE # E-mail address to allow authentication to
+      hash: "C4@ng3M3!" # bcrypt(10r) hasH of the users password see README doc
+      username: user@INSERT_OWN_DOMAIN.HERE # E-mail address to allow authentication to
+      userID: user@INSERT_OWN_DOMAIN.HERE # E-mail address to allow authentication to
 kind: ConfigMap
 metadata:
   labels:
