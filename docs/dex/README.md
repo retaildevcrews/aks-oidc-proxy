@@ -61,7 +61,7 @@ Events:
   Normal  Issued  38s   cert-manager  Certificate issued successfully
 ```
 
-Now the Dex service can be deployed. The dex-config.yaml file needs to be updated to have the correct domain that is being used for the example scenario. In the `staticPasswords` section of the config, a Hash of a password that has been encrypted with the bcrypt hash algorithm. You can visit [bcrypt-generator.com](https://bcrypt-generator.com/) to encrypt your plaintext password (use a 10 round hash). The `staticClients` section of the config requires also a `id` and `secret`, but these can be any random value. The important thing is that these values be recorded as they will be needed in the [Gangway](../../docs/gangway/README.md) setup.
+Now the Dex service can be deployed. The dex-config.yaml file needs to be updated to have the correct domain that is being used for the example scenario. In the `staticPasswords` section of the config, a Hash of a password that has been encrypted with the bcrypt hash algorithm. If you use an online tool to generate the password bcrypt hash, it is important to only use testing passwords for demo purposes. Do not use any of your real passwords. You can visit [bcrypt-generator.com](https://bcrypt-generator.com/) to encrypt your plaintext password (use a 10 round hash). The `staticClients` section of the config requires also a `id` and `secret`, but these can be any random value. The important thing is that these values be recorded as they will be needed in the [Gangway](../../docs/gangway/README.md) setup.
 
 ```bash
 kubectl -n auth apply -f src/yaml/dex/dex-config.yaml
