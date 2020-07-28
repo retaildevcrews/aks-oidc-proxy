@@ -61,7 +61,7 @@ Events:
   Normal  Issued  38s   cert-manager  Certificate issued successfully
 ```
 
-Now the Dex service can be deployed. The dex-config.yaml file needs to be updated to have the correct domain that is being used for the example scenario
+Now the Dex service can be deployed. The dex-config.yaml file needs to be updated to have the correct domain that is being used for the example scenario. In the `staticPasswords` section of the config, a Hash of a password that has been encrypted with the bcrypt hash algorithm. If you use an online tool to generate the password bcrypt hash, it is important to only use testing passwords for demo purposes. Do not use any of your real passwords. You can visit [bcrypt-generator.com](https://bcrypt-generator.com/) to encrypt your plaintext password (use a 10 round hash). The `staticClients` section of the config requires also a `id` and `secret`, but these can be any random value. The important thing is that these values be recorded as they will be needed in the [Gangway](../../docs/gangway/README.md) setup.
 
 ```bash
 kubectl -n auth apply -f src/yaml/dex/dex-config.yaml
@@ -75,15 +75,6 @@ The dex service should now be up and running and can be verified by running
 kubectl -n auth get pods
 NAME                   READY   STATUS    RESTARTS   AGE
 dex-686d49bf85-sxlj8   1/1     Running   0          9m51s
-```
-
-Once dex is running it will register its own Custom Resources. The 2 used for this example are the Password and Oauth2Client resources. These can be aplied to the cluster now. Edit the 2 samle files accordingly with your own domain name. the [dex-user.yaml](../../src/yaml/dex/dex-user.yaml) file requires not only the the domain be edited but also a Base64 Hash of a password that has been encrypted with the bcrypt hash algorithm. You can visit [bcrypt-generator.com](https://bcrypt-generator.com/) to encrypt yur plaintext password (use a 10 round hash) and then you can visit [www.base64encode.org](https://www.base64encode.org/) to get the final value to add to the file.
-
-The dex-oauth2client.yaml file requires also a clinetId and secret but these can be any random value. The importnat thing is that this values be recorded as they will be needed in the [Gangway](../../docs/gangway/README.md) setup.
-
-```bash
-kubectl -n auth apply -f src/yaml/dex/dex-user.yaml
-kubectl -n auth apply -f src/yaml/dex/dex-oauth2client.yaml
 ```
 
 Dex is now configured for a single user with an email claim and a password in the static database. There is also the option to use a 3rd party authentication system such as GitHub, Google, Microsoft, LDAP etc. There is a sample deployment and configuration files needed in the [src/yaml/dex/github_config/](../..src/yaml/dex/github_config/) directory as an example.
