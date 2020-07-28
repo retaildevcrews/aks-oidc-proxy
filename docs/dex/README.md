@@ -6,7 +6,7 @@ Dex acts as a portal to other identity providers through ["connectors."](https:/
 
 Dex runs natively on top of any Kubernetes cluster using Third Party Resources and can drive API server authentication through the OpenID Connect plugin. Clients, such as kubectl, can act on behalf users who can login to the cluster through any identity provider dex supports.
 
-## Prerequsites
+## Prerequisites
 
 To allow the Dex service to deploy properly there is an order to applying the yaml files provided. Dex uses its service account to create the needed Custom Resource Defintions (CRDs) and to have proper access to its own namespace to update CRD files.
 
@@ -26,7 +26,8 @@ kubectl -n auth apply -f src/yaml/dex/dex-clusterrole.yaml
 kubectl -n auth apply -f src/yaml/dex/dex-clusterrolebinding.yaml
 ```
 
-Deploy the Certificate request so cert-manager can create the required tls secret that the dex deployment will use as a volume mount
+Deploy the Certificate request so cert-manager can create the required tls secret that the dex deployment will use as a volume mount.
+You will need to update the dex-cert.yaml file with your domain.
 
 ```bash
 kubectl -n auth apply -f src/yaml/dex/dex-cert.yaml
@@ -38,7 +39,7 @@ Verify if the certificate has been issued
 kubectl -n auth describe certificate dex
 ```
 
-A successful Certiicate assignment will show the last few lines as such
+A successful Certiicate assignment will show the last few lines as such. This may take a few minutes to succeed.
 
 ```bash
 Name:         dex
