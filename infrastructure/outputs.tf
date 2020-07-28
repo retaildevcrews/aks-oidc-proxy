@@ -13,3 +13,7 @@ output "AZURE_DNS_ZONE" {
 output "AZURE_DNS_ZONE_RESOURCE_GROUP" {
   value = azurerm_resource_group.aks-oidc-proxy.name
 }
+
+output "AZURE_CERT_MANAGER_SP_PASSWORD" {
+  value = azuread_service_principal_password.cert-manager-password.value
+}
