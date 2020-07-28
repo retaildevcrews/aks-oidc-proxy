@@ -20,7 +20,7 @@ This command creates:
 - A Service of `type: LoadBalancer` that points to the Contour's Envoy instances
 - An Azure Standard Load Balancer with frontend PublicIP and a backend pool of the Cluster nodes with port 80 and 443 NATed through the Load Balancer.
 
-## Configure a DNS Zone for resoultion between the services
+## Configure a DNS Zone for resolution between the services
 
 In this scenario, we are assuming that the 3 different services can be deployed in different environments. In most production scenarios there will be a single Dex environment and potentially a gangway and kube-proxy-oidc service in each cluster. To facilitate this an Azure DNS Zone will be used in this example and a fully resolvable DNS is required and the Nameservers for your domain need to be updated with your registrar to the Azure DNS Zone Name Servers. You can find instructions [here](https://docs.microsoft.com/en-us/azure/dns/dns-delegate-domain-azure-dns).
 

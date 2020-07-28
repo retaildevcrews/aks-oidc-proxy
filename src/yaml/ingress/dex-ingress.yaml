@@ -2,21 +2,21 @@ apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
   labels:
-    name: gangway
-  name: gangway
+    name: dex
+  name: dex
   namespace: auth
 spec:
   routes:
   - conditions:
     - prefix: /
     services:
-    - name: gangway
-      port: 8080
+    - name: dex
+      port: 5556
   tcpproxy:
     services:
-    - name: gangway
-      port: 8080
+    - name: dex
+      port: 5556
   virtualhost:
-    fqdn: gangway.evillgenius.com
+    fqdn: dex.INSERT_DOMAIN.HERE
     tls:
       passthrough: true
