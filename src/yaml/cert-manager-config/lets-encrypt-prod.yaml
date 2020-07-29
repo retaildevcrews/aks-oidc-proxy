@@ -6,19 +6,19 @@ metadata:
   name: letsencrypt-prod
 spec:
   acme:
-    email: edvilla@microsoft.com
+    email: VALID@EMAIL.ADDRESS
     privateKeySecretRef:
       name: letsencrypt-prod
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
     - dns01:
         azuredns:
-          clientID: 6dcec2f4-853f-4557-aae9-249d70a17d28
+          clientID: AZURE_CERT_MANAGER_SP_APP_ID
           clientSecretSecretRef:
             key: client-secret
             name: azuredns-config
           environment: AzurePublicCloud
-          hostedZoneName: evillgenius.com
-          resourceGroupName: evillgenius_dns_rg
-          subscriptionID: 648dcb5a-de1e-48b2-af6b-fe6ef28d355c
-          tenantID: 72f988bf-86f1-41af-91ab-2d7cd011db47
+          hostedZoneName: AZURE_DNS_ZONE
+          resourceGroupName: AZURE_DNS_ZONE_RESOURCE_GROUP
+          subscriptionID: AZURE_SUBSCRIPTION_ID
+          tenantID: AZURE_TENANT_ID

@@ -22,15 +22,21 @@ This command creates:
 
 ## Configure a DNS Zone for resoultion between the services
 
-In this scenario, we are assuming that the 3 different services can be deployed in different environments. In most production scenarios there will be a single Dex environment and potentially a gangway and kube-proxy-oidc service in each cluster. To facilitate this an Azure DNS Zone will be used in this example and a fully resolvable DNS is required and the Nameservers for your domain need to be updated with your registrar to the Azure DNS Zone Name Servers. You can find instructions [here](https://docs.microsoft.com/en-us/azure/dns/dns-delegate-domain-azure-dns).
+In this scenario, we are assuming that the 3 different services can be deployed in different environments. In most production scenarios there will be a single Dex environment and potentially a gangway and kube-proxy-oidc service in each cluster. To facilitate this, an Azure DNS Zone will be used in this example. A fully resolvable DNS is required and the Nameservers for your domain need to be updated with your registrar to the Azure DNS Zone Name Servers. You can find instructions [here](https://docs.microsoft.com/en-us/azure/dns/dns-delegate-domain-azure-dns).
 
-Once a domain has been established 3 A records need to be created for the example system.
+Once a domain has been established, 3 A records need to be created for the example system.
 
 - dex.INSERT_OWN_DOMAIN.HERE
 - gangway.INSERT_OWN_DOMAIN.HERE
 - kube-oidc-proxy.INSERT_OWN_DOMAIN.HERE
 
 The 3 records will be behind the external IP address of the Contour Ingress that was just deployed.
+
+Find the external IP address by running the following command:
+
+```bash
+kubectl get svc -n projectcontour
+```
 
 ## Configure the Ingress for each service
 
@@ -45,6 +51,7 @@ For the example scenario each service will have an ingress defined using an HTTP
 - [kube-oidc-proxy ingress](../../src/yaml/ingress/kop-ingress.yaml)
 
 >Excerpt
+
 ```yaml
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
