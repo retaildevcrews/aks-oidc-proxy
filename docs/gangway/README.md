@@ -36,7 +36,8 @@ data:
       "certFile": "/etc/gangway/tls/tls.crt",
       "clientID": "75UiO2E81m5Vi3nST4269fuO", #random string used in the config of dex staticClient
       "clientSecret": "kubYhdk7TBZCO4H1MwF0RpuT", #random string used in the config of dex staticClient
-      "clusterName": "oidcproxy.INSERT_OWN_DOMAIN.HERE",
+      "clusterCAPath": "/etc/gangway/cluster-ca.crt",
+      "clusterName": "INSERT_NAME_OF_AKS_SERVER",
       "keyFile": "/etc/gangway/tls/tls.key",
       "redirectURL": "https://gangway.INSERT_OWN_DOMAIN.HERE/callback",
       "scopes": [
@@ -73,7 +74,7 @@ If using the example YAML, create a secret to hold this value with the following
 
 ```bash
 kubectl -n auth create secret generic gangway \
-  --from-literal=sessionkey=$(openssl rand -base64 32)
+  --from-literal=session-security-key=$(openssl rand -base64 32)
 ```
 
 ## Deploy the rest of gangway

@@ -36,7 +36,8 @@ data:
       "certFile": "/etc/gangway/tls/tls.crt",
       "clientID": "75UiO2E81m5Vi3nST4269fuO",
       "clientSecret": "kubYhdk7TBZCO4H1MwF0RpuT",
-      "clusterName": "oidcproxy.INSERT_OWN_DOMAIN.HERE",
+      "clusterName": "INSERT_NAME_OF_AKS_SERVER",
+      "clusterCAPath": "/etc/gangway/cluster-ca.crt",
       "keyFile": "/etc/gangway/tls/tls.key",
       "redirectURL": "https://gangway.INSERT_OWN_DOMAIN.HERE/callback",
       "scopes": [
