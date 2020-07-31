@@ -80,4 +80,4 @@ dex-686d49bf85-sxlj8   1/1     Running   0          9m51s
 
 Dex is now configured for a single user with an email claim and a password in the static database. There is also the option to use a 3rd party authentication system such as GitHub, Google, Microsoft, LDAP etc. There is a sample deployment and configuration files needed in the [src/yaml/dex/github_config/](../..src/yaml/dex/github_config/) directory as an example.
 
-Now gangway can be configured to offer configuration files to authorized users. Follow the [Gangway deployment and configuration](../../docs/gangway/README.md) instructions.
+Now kube-proxy-oidc can be configured to offer configuration files to authorized users. Follow the [kube-oidc-proxy deployment and configuration](../../docs/kube-oidc-proxy/README.md) instructions.
