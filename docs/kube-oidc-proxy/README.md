@@ -14,7 +14,7 @@ The following is a diagram of the request flow for a user request.
 
 For the example run through the kube-oidc-proxy pod will run in cluster and needs to be configured to talk with the dex environment set up in the previous step.
 
-The two files that need to be customized for this example deployment are [kop-cert.yaml](../../src/yaml/kube-oidc-proxy/kop-cert.yaml) and [kop-secetconfig.yaml](../../src/yaml/kube-oidc-proxy/kop-secretconfig.yaml).
+The two files that need to be customized for this example deployment are [kop-cert.yaml](../../src/yaml/kube-oidc-proxy/kop-cert.yaml) and [kop-secretconfig.yaml](../../src/yaml/kube-oidc-proxy/kop-secretconfig.yaml).
 
 kop-cert.yaml only needs to have the custom domain used for the example run through you are runnning. Replace the INSERT_OWN_DOMAIN.HERE with your own. As an example
 
