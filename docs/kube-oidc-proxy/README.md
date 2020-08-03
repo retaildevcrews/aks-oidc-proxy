@@ -12,7 +12,7 @@ The following is a diagram of the request flow for a user request.
 
 ## Configure the Yaml deployment files
 
-For the example run through the kube-oidc-proxy pod will run in cluster and needs to be configured to talk with the dex enviornemtn set up in the previous step.
+For the example run through the kube-oidc-proxy pod will run in cluster and needs to be configured to talk with the dex environment set up in the previous step.
 
 The two files that need to be customized for this example deployment are [kop-cert.yaml](../../src/yaml/kube-oidc-proxy/kop-cert.yaml) and [kop-secetconfig.yaml](../../src/yaml/kube-oidc-proxy/kop-secretconfig.yaml).
 
