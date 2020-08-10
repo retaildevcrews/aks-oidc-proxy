@@ -6,7 +6,7 @@ metadata:
     {{- include "aks-kube-oidc-proxy.labels" . | nindent 4 }}
 spec:
   dnsNames:
-    - {{ .Values.ingress.host }}
+    - "{{ .Release.Name }}.{{ .Values.ingress.host }}"
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-prod
