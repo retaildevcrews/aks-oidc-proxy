@@ -33,7 +33,7 @@ spec:
             port: 8080
           initialDelaySeconds: 15
           periodSeconds: 10
-        command: ["aks-kube-oidc-proxy"]
+        command: ["kube-oidc-proxy"]
         args:
           - "--secure-port=443"
           - "--tls-cert-file=/etc/oidc/tls/crt.pem"
