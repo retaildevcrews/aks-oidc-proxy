@@ -35,8 +35,9 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "aks-kube-oidc-proxy.labels" -}}
+app.kubernetes.io/name: {{ include "aks-kube-oidc-proxy.name" . }}
 helm.sh/chart: {{ include "aks-kube-oidc-proxy.chart" . }}
-{{ include "aks-kube-oidc-proxy.selectorLabels" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -44,12 +45,18 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{/*
-Selector labels
+Required claims serialized to CLI argument
 */}}
-{{- define "aks-kube-oidc-proxy.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "aks-kube-oidc-proxy.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+{{- define "requiredClaims" -}}
+{{- if .Values.oidc.requiredClaims -}}
+{{- $local := (list) -}}
+{{- range $k, $v := .Values.oidc.requiredClaims -}}
+{{- $local = (printf "%s=%s" $k $v | append $local) -}}
 {{- end -}}
+{{ join "," $local }}
+{{- end -}}
+{{- end -}}
+
 
 {{/*
 Create the name of the service account to use
