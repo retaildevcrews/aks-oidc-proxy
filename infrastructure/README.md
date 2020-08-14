@@ -18,7 +18,7 @@ Find the Subscription where resources will be created and take note of the "id".
 az account set --subscription="SUBSCRIPTION_ID"
 
 # example:
-# az account set --subscription="04f0d2e0-703b-4e4d-a267-cafae20b6992"
+# az account set --subscription="00000000-1111-2222-3333-444444444444"
 ```
 
 Initialize terraform.
