@@ -16,7 +16,7 @@ The following is a diagram of the request flow for a user request.
 
 ## Features
 
-- Helm Chart deployment nto AKS
+- Helm Chart deployment into AKS
 - Dex, Gangway, Contour Ingress and Cert-Manager deployment and configurations steps
 
 ## Prerequisites
