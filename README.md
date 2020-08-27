@@ -1,15 +1,23 @@
-# {{Title}}
+# kube-oidc-proxy from Jetstack running in Azure Kubernetes Service
 
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 ## Description
 
-Description of the project ...
+kube-oidc-proxy is a reverse proxy server to authenticate users using OIDC to Kubernetes API servers where OIDC authentication is not available (i.e. managed Kubernetes providers such as AKS, GKE, etc).
+
+This intermediary server takes kubectl requests, authenticates the request using the configured OIDC Kubernetes authenticator, then attaches impersonation headers based on the OIDC response from the configured provider. This impersonated request is then sent to the API server on behalf of the user and it's response passed back. The server has flag parity with secure serving and OIDC authentication that are available with the Kubernetes API server as well as client flags provided by kubectl. In-cluster client authentication is also available when running kube-oidc-proxy as a pod.
+
+Since the proxy server utilises impersonation to forward requests to the API server once authenticated, impersonation is disabled for user requests to the API server.
+
+The following is a diagram of the request flow for a user request.
+
+![Kube-oidc-proxy Auth Flow](./docs/images/kop_flow.png)
 
 ## Features
 
-- Feature
-- Feature
+- Helm Chart deployment into AKS
+- Dex, Gangway, Contour Ingress and Cert-Manager deployment and configurations steps
 
 ## Prerequisites
 
@@ -18,8 +26,7 @@ Description of the project ...
 - Bash shell (tested on Mac, Ubuntu, Windows with WSL2)
   - Will not work in Cloud Shell unless you have a remote dockerd
 - Azure CLI 2.0.72+ ([download](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest))
-- Docker CLI ([download](https://docs.docker.com/install/))
-- .NET Core SDK 3.0 ([download](https://dotnet.microsoft.com/download))
+- Helm v3 ([download](https://helm.sh/docs/intro/install/))
 - Visual Studio Code (optional) ([download](https://code.visualstudio.com/download))
 
 ## Documentation
