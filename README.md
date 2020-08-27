@@ -1,4 +1,4 @@
-# {{Title}}
+# kube-oidc-proxy from Jetstack running in Azure Kubernetes Service
 
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -16,8 +16,8 @@ The following is a diagram of the request flow for a user request.
 
 ## Features
 
-- Feature
-- Feature
+- Helm Chart deployment nto AKS
+- Dex, Gangway, Contour Ingress and Cert-Manager deployment and configurations steps
 
 ## Prerequisites
 
