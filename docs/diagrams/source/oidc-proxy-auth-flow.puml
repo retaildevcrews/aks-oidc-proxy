@@ -1,20 +1,26 @@
 @startuml AKS-OIDC-Login-and-K8s-Request
-
-"K8s Admin"->Gangway: Login Request
-Gangway -->"K8s Admin": Redirect to "OIDC Provider"
-"K8s Admin" -> "OIDC Provider":Request login page
-"OIDC Provider" --> "K8s Admin": Login Form
-"K8s Admin"-> "OIDC Provider": Submit credentials
-"OIDC Provider" -> IdP: Authenticate
-IdP --> "OIDC Provider": Auth Token
-"OIDC Provider" --> "K8s Admin": Redirect to Gangway with access code
-"K8s Admin" -> Gangway: Follow redirect with access code
-Gangway -> "OIDC Provider": Exchange access code for token
-"OIDC Provider" --> Gangway: Id token
-Gangway --> "K8s Admin": Kubeconfig with token
-"K8s Admin"->"Kube OIDC Proxy": kubectl cmd
-"Kube OIDC Proxy" -> "K8s API Server": kubectl cmd
-"K8s API Server" --> "Kube OIDC Proxy": API response
-"Kube OIDC Proxy" --> "K8s Admin": API response
-
+group Auth Flow
+    "K8s Admin"->Gangway: Login Request
+    activate Gangway 
+    Gangway -->"K8s Admin": Redirect to "OIDC Provider"
+    "K8s Admin" -> "OIDC Provider":Request login page
+    activate "OIDC Provider" 
+    "OIDC Provider" --> "K8s Admin": Login Form
+    "K8s Admin"-> "OIDC Provider": Submit credentials
+    "OIDC Provider" -> IdP: Authenticate
+    IdP --> "OIDC Provider": Auth Token
+    "OIDC Provider" --> "K8s Admin": Redirect to Gangway with access code
+    "K8s Admin" -> Gangway: Follow redirect with access code
+    Gangway -> "OIDC Provider": Exchange access code for token
+    "OIDC Provider" --> Gangway: Id token
+    deactivate "OIDC Provider"
+    Gangway --> "K8s Admin": Kubeconfig with token
+    deactivate Gangway
+end
+group K8s API Commands
+    "K8s Admin"->"Kube OIDC Proxy": kubectl cmd
+    "Kube OIDC Proxy" -> "K8s API Server": kubectl cmd
+    "K8s API Server" --> "Kube OIDC Proxy": API response
+    "Kube OIDC Proxy" --> "K8s Admin": API response
+end
 @enduml 
