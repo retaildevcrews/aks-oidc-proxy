@@ -19,6 +19,7 @@ group Auth Flow
 end
 group K8s API Commands
     "K8s Admin"->"Kube OIDC Proxy": kubectl cmd
+    activate "Kube OIDC Proxy"
     "Kube OIDC Proxy" -> "Kube OIDC Proxy": verify token with public key
     "Kube OIDC Proxy" -> "Kube OIDC Proxy": update header
     note right
@@ -28,5 +29,6 @@ group K8s API Commands
     "Kube OIDC Proxy" -> "K8s API Server": kubectl cmd
     "K8s API Server" --> "Kube OIDC Proxy": API response
     "Kube OIDC Proxy" --> "K8s Admin": API response
+    deactivate "Kube OIDC Proxy"
 end
 @enduml 
