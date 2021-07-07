@@ -20,7 +20,11 @@ end
 group K8s API Commands
     "K8s Admin"->"Kube OIDC Proxy": kubectl cmd
     "Kube OIDC Proxy" -> "Kube OIDC Proxy": verify token with public key
-    "Kube OIDC Proxy" -> "Kube OIDC Proxy": remove OIDC header & set impersonation header using username claim
+    "Kube OIDC Proxy" -> "Kube OIDC Proxy": update header
+    note right
+        * remove OIDC header 
+        * set impersonation header using username claim
+    end note
     "Kube OIDC Proxy" -> "K8s API Server": kubectl cmd
     "K8s API Server" --> "Kube OIDC Proxy": API response
     "Kube OIDC Proxy" --> "K8s Admin": API response
