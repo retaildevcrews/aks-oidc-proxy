@@ -4,15 +4,17 @@
 
 ## Description
 
-kube-oidc-proxy is a reverse proxy server to authenticate users using OIDC to Kubernetes API servers where OIDC authentication is not available (i.e. managed Kubernetes providers such as AKS, GKE, etc).
+kube-oidc-proxy is a reverse proxy used to authenticate users using OIDC to Kubernetes API servers where OIDC authentication is not available (i.e. managed Kubernetes providers such as AKS, GKE, etc).
 
-This intermediary server takes kubectl requests, authenticates the request using the configured OIDC Kubernetes authenticator, then attaches impersonation headers based on the OIDC response from the configured provider. This impersonated request is then sent to the API server on behalf of the user and it's response passed back. The server has flag parity with secure serving and OIDC authentication that are available with the Kubernetes API server as well as client flags provided by kubectl. In-cluster client authentication is also available when running kube-oidc-proxy as a pod.
+User authentication is enabled via a request to the OIDC Provider (Dex). This request may be initiated by a tool or site to enable user authentication. Gangway is used for user interactive login. Dex will pass on user information to the Identity Provider (IdP) for authentication and provides an identity token for kubeconfig.
+
+Once the user's kubeconfig is updated then requests may be made using kubectl. The reverse proxy receives kubectl requests, verifies the token in the request using headers inserted by Dex, and validates the tokens using the public key of the configured Identity Provider (e.g., Dex, AAD, Google, etc.). Once the token is verified the OIDC token is removed and impersonation headers are set before passing the request on to the Kubernetes API server and the response is returned to the user. 
 
 Since the proxy server utilises impersonation to forward requests to the API server once authenticated, impersonation is disabled for user requests to the API server.
 
-The following is a diagram of the request flow for a user request.
+The following is a diagram of the request flow for a user request:
 
-![Kube-oidc-proxy Auth Flow](./docs/images/kop_flow.png)
+![Kube-oidc-proxy Auth Flow](./docs/diagrams/out/AKS-OIDC-Login-and-K8s-Request.svg)
 
 ## Features
 
