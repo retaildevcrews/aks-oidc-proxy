@@ -1,4 +1,4 @@
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   labels:
@@ -7,8 +7,8 @@ metadata:
   namespace: auth
 spec:
   dnsNames:
-  - kube-oidc-proxy.INSERT_OWN_DOMAIN.HERE
+  - kube-oidc-proxy..auth.svc.cluster.local
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-prod
+    name: my-ca-issuer
   secretName: kube-oidc-proxy-tls

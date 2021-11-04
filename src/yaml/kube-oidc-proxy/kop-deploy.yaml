@@ -26,7 +26,7 @@ spec:
       containers:
       - command:
         - kube-oidc-proxy
-        - --secure-port=443
+        - --secure-port=8443
         - --tls-cert-file=/etc/kube-oidc-proxy/tls/tls.crt
         - --tls-private-key-file=/etc/kube-oidc-proxy/tls/tls.key
         - '--oidc-groups-prefix=dex:'
@@ -35,6 +35,7 @@ spec:
         - --oidc-issuer-url=$(OIDC_ISSUER_URL)
         - --token-passthrough
         - --oidc-username-claim=email
+        - --oidc-ca-file=/etc/kube-oidc-proxy/tls/ca.crt
         env:
         - name: OIDC_CLIENT_ID
           valueFrom:
@@ -53,7 +54,7 @@ spec:
         - containerPort: 8080
           name: probe
           protocol: TCP
-        - containerPort: 443
+        - containerPort: 8443
           name: serving
           protocol: TCP
         readinessProbe:

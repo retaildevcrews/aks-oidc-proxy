@@ -6,8 +6,8 @@ spec:
   type: ClusterIP
   ports:
   - name: kube-oidc-proxy
-    port: 443
+    port: 8443
     protocol: TCP
-    targetPort: 443
+    targetPort: 8443
   selector:
     name: kube-oidc-proxy
