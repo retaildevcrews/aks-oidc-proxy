@@ -1,6 +1,6 @@
 {
   "name": "msteams-infra",
-  "image": "ghcr.io/cse-labs/dind:latest",
+  "image": "ghcr.io/cse-labs/k3d:latest",
   "runArgs": ["--init", "--privileged"],
   "overrideCommand": false,
 
@@ -16,5 +16,14 @@
     "davidanson.vscode-markdownlint",
     "gruntfuggly.todo-tree",
     "ms-azuretools.vscode-docker"
-  ]
+  ],
+
+	// Use 'onCreateCommand' to run commands as part of container creation.
+	"onCreateCommand": "/bin/bash -c .devcontainer/on-create.sh",
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "/bin/bash -c .devcontainer/post-create.sh",
+
+	// Use 'postStartCommand' to run commands after the container starts.
+	"postStartCommand": "/bin/bash -c .devcontainer/post-start.sh"
 }

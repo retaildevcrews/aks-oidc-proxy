@@ -1,0 +1,18 @@
+apiVersion: k3d.io/v1alpha2
+kind: Simple
+servers: 1
+network: k3d
+kubeAPI:
+  hostIP: "0.0.0.0"
+  hostPort: "6443"
+options:
+  k3d:
+    wait: true
+    timeout: "60s"
+  k3s:
+    extraServerArgs:
+      - --tls-san=127.0.0.1
+    extraAgentArgs: []
+  kubeconfig:
+    updateDefaultKubeconfig: true
+    switchCurrentContext: true
