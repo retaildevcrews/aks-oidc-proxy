@@ -50,22 +50,25 @@ spec:
           httpGet:
             path: /.well-known/openid-configuration
             port: 5556
-            scheme: HTTPS
+            scheme: HTTP
           initialDelaySeconds: 120
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
         name: dex
+        env:
+        - name: KUBERNETES_POD_NAMESPACE
+          value: auth
         ports:
         - containerPort: 5556
-          name: https
+          name: http
           protocol: TCP
         readinessProbe:
           failureThreshold: 3
           httpGet:
             path: /.well-known/openid-configuration
             port: 5556
-            scheme: HTTPS
+            scheme: HTTP
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
@@ -80,8 +83,6 @@ spec:
         volumeMounts:
         - mountPath: /etc/dex/config
           name: config
-        - mountPath: /etc/dex/tls
-          name: tls
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -95,7 +96,3 @@ spec:
           defaultMode: 420
           name: dex
         name: config
-      - name: tls
-        secret:
-          defaultMode: 420
-          secretName: dex-tls
