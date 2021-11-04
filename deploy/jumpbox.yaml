@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: jumpbox
+  name: jumpbox
+  namespace: default
+spec:
+  containers:
+  - args:
+    - /bin/sh
+    - -c
+    - 'trap : TERM INT; sleep 9999999999d & wait'
+    image: ghcr.io/cse-labs/jumpbox
+    imagePullPolicy: Always
+    name: jumpbox
+    resources: {}
+    volumeMounts:
+    - mountPath: /etc/jumpbox/tls
+      name: tls
+  restartPolicy: Always
+  volumes:
+  - name: tls
+    secret:
+      defaultMode: 420
+      secretName: jumpbox-tls

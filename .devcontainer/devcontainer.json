@@ -15,6 +15,16 @@
     "terminal.integrated.defaultProfile.linux": "zsh"
   },
 
+    // forward ports for the app
+  "forwardPorts": [
+    8080
+  ],
+
+    // add labels
+  "portsAttributes": {
+    "8080": { "label": "gangway" }
+  },
+
   // Install extensions
   "extensions": [
     "ms-azuretools.vscode-docker",

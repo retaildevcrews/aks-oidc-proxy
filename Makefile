@@ -26,7 +26,7 @@ jumpbox :
 	# start a jumpbox pod
 	@-kubectl delete pod jumpbox --ignore-not-found=true
 
-	@kubectl run jumpbox --image=ghcr.io/cse-labs/jumpbox --restart=Always -- /bin/sh -c "trap : TERM INT; sleep 9999999999d & wait"
+	@kubectl apply -f deploy/jumpbox.yaml
 	@kubectl wait pod jumpbox --for condition=ready --timeout=30s
 	@kubectl exec jumpbox -- /bin/sh -c "apk update && apk add bash curl nano jq py-pip" > /dev/null
 	@kubectl exec jumpbox -- /bin/sh -c "pip3 install --upgrade pip setuptools httpie" > /dev/null

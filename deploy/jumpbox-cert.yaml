@@ -2,13 +2,13 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   labels:
-    name: gangway
-  name: gangway
-  namespace: auth
+    name: jumpbox
+  name: jumpbox
+  namespace: default
 spec:
   dnsNames:
-  - gangway.auth.svc.cluster.local
+  - jumpbox.default.svc.cluster.local
   issuerRef:
     kind: ClusterIssuer
     name: my-ca-issuer
-  secretName: gangway-tls
+  secretName: jumpbox-tls

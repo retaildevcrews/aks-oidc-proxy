@@ -19,14 +19,14 @@ data:
     staticClients:
     - id: gangway
       redirectURIs:
-      - https://gangway.INSERT_OWN_DOMAIN.HERE/callback
+      - https://gangway.auth.svc.cluster.local:8080/callback
       name: gangway-oauth2client
       secret: a5eedbeff37df5eeb67af65f # random String. `openssl rand -hex 12`
     staticPasswords:
-    - email: user@INSERT_OWN_DOMAIN.HERE # E-mail address to allow authentication to
+    - email: user@example.com # E-mail address to allow authentication to
       hash: "$2y$10$i3ogbGtHh95sSaDspnBac.FyQDbFJPJztSrronV7BSUxdJmpHUGHS" # bcrypt(10r) for "password". `htpasswd -nbBC 10 "" password | tr -d ':\n'`
-      username: user@INSERT_OWN_DOMAIN.HERE # E-mail address to allow authentication to
-      userID: user@INSERT_OWN_DOMAIN.HERE # E-mail address to allow authentication to
+      username: user@example.com # E-mail address to allow authentication to
+      userID: user@example.com # E-mail address to allow authentication to
 kind: ConfigMap
 metadata:
   labels:
