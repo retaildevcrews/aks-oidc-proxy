@@ -50,7 +50,7 @@ spec:
           httpGet:
             path: /.well-known/openid-configuration
             port: 5556
-            scheme: HTTP
+            scheme: HTTPS
           initialDelaySeconds: 120
           periodSeconds: 10
           successThreshold: 1
@@ -61,14 +61,14 @@ spec:
           value: auth
         ports:
         - containerPort: 5556
-          name: http
+          name: https
           protocol: TCP
         readinessProbe:
           failureThreshold: 3
           httpGet:
             path: /.well-known/openid-configuration
             port: 5556
-            scheme: HTTP
+            scheme: HTTPS
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
@@ -83,6 +83,8 @@ spec:
         volumeMounts:
         - mountPath: /etc/dex/config
           name: config
+        - mountPath: /etc/dex/tls
+          name: tls
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -96,3 +98,7 @@ spec:
           defaultMode: 420
           name: dex
         name: config
+      - name: tls
+        secret:
+          defaultMode: 420
+          secretName: dex-tls
