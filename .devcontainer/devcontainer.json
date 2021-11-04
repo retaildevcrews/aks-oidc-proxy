@@ -1,0 +1,20 @@
+{
+  "name": "msteams-infra",
+  "image": "ghcr.io/cse-labs/dind:latest",
+  "runArgs": ["--init", "--privileged"],
+  "overrideCommand": false,
+
+  "remoteUser": "vscode",
+
+  // Set container specific settings
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "zsh"
+  },
+
+  // Install extensions
+  "extensions": [
+    "davidanson.vscode-markdownlint",
+    "gruntfuggly.todo-tree",
+    "ms-azuretools.vscode-docker"
+  ]
+}
