@@ -86,6 +86,9 @@ spec:
         volumeMounts:
         - mountPath: /etc/dex/config
           name: config
+        - mountPath: /web/templates/header.html
+          name: dex-template
+          subPath: header.html
         - mountPath: /etc/dex/tls
           name: tls
       dnsPolicy: ClusterFirst
@@ -101,6 +104,13 @@ spec:
           defaultMode: 420
           name: dex
         name: config
+      - configMap:
+          defaultMode: 420
+          name: dex-template
+          items:
+          - key: header.html
+            path: header.html
+        name: dex-template
       - name: tls
         secret:
           defaultMode: 420

@@ -14,10 +14,7 @@ rough notes on getting kube-oidc-setup to work in codespaces k3d kubernetes clus
   - "svc.cluster.local" urls when a component needs to initiate request to another in-cluster component
   - "githubpreview.dev" urls when browser needs to make a request and/or redirect to another component
 - css/styling issue with dex because of wrong url for static assets
-  - static assets seem to be coming from "issuer" config setting, which is currently using the "svc.cluster.local" url
-  - using the cluster url because kube-oidc-proxy makes a request to that issuer url on startup.
-  - using the "githubpreview.dev" url for the issuer fixes the dex static assests, but kube-oidc-proxy fails to start because it cannot reach the "githubpreview.dev" url
-    - assuming the response is an auth page for the user to login to github before viewing the page. similar to viewing a "githubpreview.dev" url while logged out of github
+  - spike solution was to override the header.html file with a custom file that uses urls relative to the browser location
 
 ## codespace app URL
 
@@ -65,13 +62,19 @@ kubectl apply -f src/yaml/cert-manager-config/self-signed-ca.yaml
 
 skipped ingress docs
 
-## auth namespace
+## auth namespace setup
 
 ```bash
 
 kubectl create namespace auth
 
+# setup session secret for gangway
 kubectl -n auth create secret generic gangway --from-literal=session-security-key=$(openssl rand -base64 32)
+
+# setup dex html template to override the default header.html so that css styles can be referenced properly.
+# this file was copied and modified from the version that is deployed
+# if the dex version is updated, check to see if the template was updated between versions and update if needed.
+kubectl -n auth create configmap dex-template --from-file "header.html=src/yaml/dex/dex-template-header.html"
 
 ```
 
