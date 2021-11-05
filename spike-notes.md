@@ -31,6 +31,8 @@ DEX_CODESPACE_PORT=30556
 echo "https://${CODESPACE_NAME}-${GANGWAY_CODESPACE_PORT}.githubpreview.dev"
 echo "https://${CODESPACE_NAME}-${DEX_CODESPACE_PORT}.githubpreview.dev"
 
+# replace existing github urls with the matching ones from the output above.
+
 ```
 
 ## start
@@ -80,6 +82,8 @@ kubectl -n auth create configmap dex-template --from-file "header.html=src/yaml/
 
 ## random client secert and bcrypt
 
+Some helper commands that can be used to generate different dex config values.
+
 ```bash
 
 # can create a static client secret from command line.
@@ -87,7 +91,7 @@ openssl rand -hex 12
 
 # can create a bcrypt password from command line
 sudo apt-get update
-sudo apt-get install apache2-utils
+sudo apt-get install apache2-utils -y
 htpasswd -nbBC 10 "" password | tr -d ':\n'
 
 ```

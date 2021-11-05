@@ -3,14 +3,14 @@ data:
   gangway.yaml: |-
     {
       "apiServerURL": "https://localhost:30443",
-      "authorizeURL": "https://aakindele-retaildevcrews-aks-oidc-proxy-rv7vjxgcx9j7-30556.githubpreview.dev/auth",
+      "authorizeURL": "https://aakindele-retaildevcrews-aks-oidc-proxy-pq7qx6r2rp6v-30556.githubpreview.dev/auth",
       "certFile": "/etc/gangway/tls/tls.crt",
       "clientID": "gangway-oauth2client",
       "clientSecret": "a5eedbeff37df5eeb67af65f",
       "clusterName": "codespace-k3d-cluster",
       "clusterCAPath": "/etc/gangway/tls/ca.crt",
       "keyFile": "/etc/gangway/tls/tls.key",
-      "redirectURL": "https://aakindele-retaildevcrews-aks-oidc-proxy-rv7vjxgcx9j7-30080.githubpreview.dev/callback",
+      "redirectURL": "https://aakindele-retaildevcrews-aks-oidc-proxy-pq7qx6r2rp6v-30080.githubpreview.dev/callback",
       "scopes": [
         "openid",
         "email",

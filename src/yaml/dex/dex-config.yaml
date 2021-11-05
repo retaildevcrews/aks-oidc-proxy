@@ -20,7 +20,7 @@ data:
     staticClients:
     - id: gangway-oauth2client
       redirectURIs:
-      - https://aakindele-retaildevcrews-aks-oidc-proxy-rv7vjxgcx9j7-30080.githubpreview.dev/callback
+      - https://aakindele-retaildevcrews-aks-oidc-proxy-pq7qx6r2rp6v-30080.githubpreview.dev/callback
       name: gangway-oauth2client
       secret: a5eedbeff37df5eeb67af65f # random String. `openssl rand -hex 12`
     staticPasswords:
