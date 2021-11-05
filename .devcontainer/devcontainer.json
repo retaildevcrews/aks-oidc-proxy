@@ -17,12 +17,14 @@
 
     // forward ports for the app
   "forwardPorts": [
-    30080
+    30080,
+    30556,
   ],
 
     // add labels
   "portsAttributes": {
-    "30080": { "label": "gangway" }
+    "30080": { "label": "gangway" },
+    "30556": { "label": "dex" }
   },
 
   // Install extensions

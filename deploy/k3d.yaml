@@ -5,6 +5,13 @@ network: k3d
 kubeAPI:
   hostIP: "0.0.0.0"
   hostPort: "6443"
+ports:
+  - port: 30080:30080
+    nodeFilters:
+      - server[0]
+  - port: 30556:30556
+    nodeFilters:
+      - server[0]
 options:
   k3d:
     wait: true

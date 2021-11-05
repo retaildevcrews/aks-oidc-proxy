@@ -1,5 +1,22 @@
 # Spike Notes
 
+## codespace app URL
+
+```bash
+
+# codespace url for app is the format
+# https://<codespace name>-<app forwarded port>.githubpreview.dev
+
+# example
+# CODESPACE_NAME is already populated in the codespace by default
+GANGWAY_CODESPACE_PORT=30080
+DEX_CODESPACE_PORT=30556
+
+echo "https://${CODESPACE_NAME}-${GANGWAY_CODESPACE_PORT}.githubpreview.dev"
+echo "https://${CODESPACE_NAME}-${DEX_CODESPACE_PORT}.githubpreview.dev"
+
+```
+
 ## start
 
 ```bash
@@ -18,6 +35,7 @@ skipped existing certmanager docs
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.0/cert-manager.yaml
 
 # wait for pods to be ready
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager
 
 # create certificate authority with self-signed cert
 kubectl apply -f src/yaml/cert-manager-config/self-signed-ca.yaml

@@ -3,7 +3,7 @@ data:
   gangway.yaml: |-
     {
       "apiServerURL": "https://kube-oidc-proxy.auth.svc.cluster.local:8443",
-      "authorizeURL": "https://dex.auth.svc.cluster.local:5556/auth",
+      "authorizeURL": "https://aakindele-retaildevcrews-aks-oidc-proxy-rv7vjxgcx9j7-30556.githubpreview.dev/auth",
       "certFile": "/etc/gangway/tls/tls.crt",
       "clientID": "gangway",
       "clientSecret": "a5eedbeff37df5eeb67af65f",
@@ -18,7 +18,7 @@ data:
         "groups",
         "offline_access"
       ],
-      "serveTLS": true,
+      "serveTLS": false,
       "tokenURL": "https://dex.auth.svc.cluster.local:5556/token",
       "usernameClaim": "name"
     }
