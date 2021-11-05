@@ -38,15 +38,9 @@ spec:
         - --oidc-ca-file=/etc/kube-oidc-proxy/tls/ca.crt
         env:
         - name: OIDC_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              key: oidc.client-id
-              name: kube-oidc-proxy-config
+          value: "gangway-oauth2client"
         - name: OIDC_ISSUER_URL
-          valueFrom:
-            secretKeyRef:
-              key: oidc.issuer-url
-              name: kube-oidc-proxy-config
+          value: "https://dex.auth.svc.cluster.local:5558"
         image: quay.io/jetstack/kube-oidc-proxy:v0.3.0
         imagePullPolicy: IfNotPresent
         name: kube-oidc-proxy

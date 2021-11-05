@@ -18,13 +18,14 @@
     // forward ports for the app
   "forwardPorts": [
     30080,
-    30556,
+    30556
   ],
 
     // add labels
   "portsAttributes": {
     "30080": { "label": "gangway" },
-    "30556": { "label": "dex" }
+    "30556": { "label": "dex" },
+    "30443": { "label": "kube-oidc-proxy" }
   },
 
   // Install extensions

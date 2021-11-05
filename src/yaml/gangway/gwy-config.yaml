@@ -2,15 +2,15 @@ apiVersion: v1
 data:
   gangway.yaml: |-
     {
-      "apiServerURL": "https://kube-oidc-proxy.auth.svc.cluster.local:8443",
+      "apiServerURL": "https://localhost:30443",
       "authorizeURL": "https://aakindele-retaildevcrews-aks-oidc-proxy-rv7vjxgcx9j7-30556.githubpreview.dev/auth",
       "certFile": "/etc/gangway/tls/tls.crt",
-      "clientID": "gangway",
+      "clientID": "gangway-oauth2client",
       "clientSecret": "a5eedbeff37df5eeb67af65f",
       "clusterName": "codespace-k3d-cluster",
       "clusterCAPath": "/etc/gangway/tls/ca.crt",
       "keyFile": "/etc/gangway/tls/tls.key",
-      "redirectURL": "https://gangway.auth.svc.cluster.local:8080/callback",
+      "redirectURL": "https://aakindele-retaildevcrews-aks-oidc-proxy-rv7vjxgcx9j7-30080.githubpreview.dev/callback",
       "scopes": [
         "openid",
         "email",
@@ -19,7 +19,7 @@ data:
         "offline_access"
       ],
       "serveTLS": false,
-      "tokenURL": "https://dex.auth.svc.cluster.local:5556/token",
+      "tokenURL": "http://dex.auth.svc.cluster.local:5556/token",
       "usernameClaim": "name"
     }
 kind: ConfigMap

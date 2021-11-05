@@ -6,10 +6,15 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - name: dex
+  - name: dex-http
     port: 5556
     protocol: TCP
     targetPort: 5556
     nodePort: 30556
+  - name: dex-https
+    port: 5558
+    protocol: TCP
+    targetPort: 5558
+    nodePort: 30558
   selector:
     name: dex

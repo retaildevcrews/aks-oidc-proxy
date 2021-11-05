@@ -8,6 +8,7 @@ metadata:
 spec:
   dnsNames:
   - kube-oidc-proxy.auth.svc.cluster.local
+  - localhost
   issuerRef:
     kind: ClusterIssuer
     name: my-ca-issuer

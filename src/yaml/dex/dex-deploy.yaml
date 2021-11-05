@@ -50,7 +50,7 @@ spec:
           httpGet:
             path: /.well-known/openid-configuration
             port: 5556
-            scheme: HTTPS
+            scheme: HTTP
           initialDelaySeconds: 120
           periodSeconds: 10
           successThreshold: 1
@@ -61,6 +61,9 @@ spec:
           value: auth
         ports:
         - containerPort: 5556
+          name: http
+          protocol: TCP
+        - containerPort: 5558
           name: https
           protocol: TCP
         readinessProbe:
@@ -68,7 +71,7 @@ spec:
           httpGet:
             path: /.well-known/openid-configuration
             port: 5556
-            scheme: HTTPS
+            scheme: HTTP
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
