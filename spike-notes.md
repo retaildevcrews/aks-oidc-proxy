@@ -4,6 +4,9 @@ rough notes on getting kube-oidc-setup to work in codespaces k3d kubernetes clus
 
 ## notes
 
+- `securecookie: the value is not valid` after clicking "sign in" button on gangway
+  - this happens when Gangway's `session-security-key` config has changed, but the browser has cookies that were created from a previous config.
+  - manual fix is to delete the Gangway browser cookies and click the "Sign In" button again.
 - saw some weird behavior when port forwading components that serve https.
   - resolved by updating forwarded components to serve http
 - updated dex to serve both http and https
